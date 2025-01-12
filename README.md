@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- markdownlint-disable-next-line -->
 <div align="center">
 
@@ -82,3 +83,6 @@ This project is published under [MIT License][license].
 [lib]: https://github.com/cotes2020/chirpy-static-assets
 [vscode]: https://code.visualstudio.com/
 [jetbrains]: https://www.jetbrains.com/?from=jekyll-theme-chirpy
+=======
+# letterhill.github.io
+>>>>>>> b3197083a57369b103e26466928eb1c405ee5539
