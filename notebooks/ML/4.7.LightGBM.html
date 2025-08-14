@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>lightgbm – My AI Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My AI Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../study.html"> 
+<span class="menu-text">Study Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lightgbm-적용---위스콘신-breast-cancer-prediction" id="toc-lightgbm-적용---위스콘신-breast-cancer-prediction" class="nav-link active" data-scroll-target="#lightgbm-적용---위스콘신-breast-cancer-prediction">LightGBM 적용 - 위스콘신 Breast Cancer Prediction</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<ul>
+<li>XGBoost보다 학습에 걸리는 시간이 훨씬 적고, 메모리 사용량도 적다.</li>
+<li>단점: 과적합 발생 쉽다. # 리프 중심 트리 분할 (Leaf Wise)</li>
+<li>대부분 트리 기반 알고리즘은 균형 트리 분할(Level Wise) 방식 사용 -&gt; 오버피팅에 강한 구조</li>
+<li>Leaf Wise는 최대 손실 값을 가지는 리프 노드를 지속적으로 분할</li>
+<li>빠른 시간 # LGBM 하이퍼 파라미터</li>
+<li>num_iterations [default=100]</li>
+<li>learning_rate[default=0.1]</li>
+<li>lambda_l2, lambda_l1 ## 하이퍼 파라미터 튜닝 방안</li>
+<li>num_leaves의 개수를 중심으로 min_child_samples, max_depth를 함께 조정하며 모델의 복잡도를 줄인다.</li>
+</ul>
+<div id="6b7939d7-73c1-4dd6-8b18-06230f9a72e3" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install lightgbm<span class="op">==</span><span class="fl">3.3.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: lightgbm==3.3.2 in c:\users\home\anaconda3\lib\site-packages (3.3.2)
+Requirement already satisfied: wheel in c:\users\home\anaconda3\lib\site-packages (from lightgbm==3.3.2) (0.43.0)
+Requirement already satisfied: numpy in c:\users\home\anaconda3\lib\site-packages (from lightgbm==3.3.2) (1.26.4)
+Requirement already satisfied: scipy in c:\users\home\anaconda3\lib\site-packages (from lightgbm==3.3.2) (1.13.1)
+Requirement already satisfied: scikit-learn!=0.22.0 in c:\users\home\anaconda3\lib\site-packages (from lightgbm==3.3.2) (1.4.2)
+Requirement already satisfied: joblib&gt;=1.2.0 in c:\users\home\anaconda3\lib\site-packages (from scikit-learn!=0.22.0-&gt;lightgbm==3.3.2) (1.4.2)
+Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda3\lib\site-packages (from scikit-learn!=0.22.0-&gt;lightgbm==3.3.2) (2.2.0)</code></pre>
+</div>
+</div>
+<div id="c3c658b5-6919-4299-b435-d27dc06ac450" class="cell" data-execution_count="33">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightgbm</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lightgbm.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.5.0</code></pre>
+</div>
+</div>
+<section id="lightgbm-적용---위스콘신-breast-cancer-prediction" class="level1">
+<h1>LightGBM 적용 - 위스콘신 Breast Cancer Prediction</h1>
+<div id="50875bc1-cbc2-47ce-9626-36f303969b1d" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LightGBM의 파이썬 패키지인 lightgbm에서 LGBMClassifier 임포트</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMClassifier</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_breast_cancer()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>cancer_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>dataset.data, columns<span class="op">=</span>dataset.feature_names)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>cancer_df[<span class="st">'target'</span>]<span class="op">=</span> dataset.target</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> cancer_df.iloc[:, :<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>y_label <span class="op">=</span> cancer_df.iloc[:, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 데이터 중 80%는 학습용 데이터, 20%는 테스트용 데이터 추출</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test<span class="op">=</span>train_test_split(X_features, y_label, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">156</span> )</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 위에서 만든 X_train, y_train을 다시 쪼개서 90%는 학습과 10%는 검증용 데이터로 분리</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>X_tr, X_val, y_tr, y_val<span class="op">=</span> train_test_split(X_train, y_train, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">156</span> )</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 앞서 XGBoost와 동일하게 n_estimators는 400 설정.</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>lgbm_wrapper <span class="op">=</span> LGBMClassifier(n_estimators<span class="op">=</span><span class="dv">400</span>, learning_rate<span class="op">=</span><span class="fl">0.05</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># LightGBM도 XGBoost와 동일하게 조기 중단 수행 가능.</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>evals <span class="op">=</span> [(X_tr, y_tr), (X_val, y_val)]</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>lgbm_wrapper.fit(X_tr, y_tr, early_stopping_rounds<span class="op">=</span><span class="dv">50</span>, eval_metric<span class="op">=</span><span class="st">"logloss"</span>, eval_set<span class="op">=</span>evals, verbose<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> lgbm_wrapper.predict(X_test)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>pred_proba <span class="op">=</span> lgbm_wrapper.predict_proba(X_test)[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] training's binary_logloss: 0.625671 valid_1's binary_logloss: 0.628248
+[2] training's binary_logloss: 0.588173 valid_1's binary_logloss: 0.601106
+[3] training's binary_logloss: 0.554518 valid_1's binary_logloss: 0.577587
+[4] training's binary_logloss: 0.523972 valid_1's binary_logloss: 0.556324
+[5] training's binary_logloss: 0.49615  valid_1's binary_logloss: 0.537407
+[6] training's binary_logloss: 0.470108 valid_1's binary_logloss: 0.519401
+[7] training's binary_logloss: 0.446647 valid_1's binary_logloss: 0.502637
+[8] training's binary_logloss: 0.425055 valid_1's binary_logloss: 0.488311
+[9] training's binary_logloss: 0.405125 valid_1's binary_logloss: 0.474664
+[10]    training's binary_logloss: 0.386526 valid_1's binary_logloss: 0.461267
+[11]    training's binary_logloss: 0.367027 valid_1's binary_logloss: 0.444274
+[12]    training's binary_logloss: 0.350713 valid_1's binary_logloss: 0.432755
+[13]    training's binary_logloss: 0.334601 valid_1's binary_logloss: 0.421371
+[14]    training's binary_logloss: 0.319854 valid_1's binary_logloss: 0.411418
+[15]    training's binary_logloss: 0.306374 valid_1's binary_logloss: 0.402989
+[16]    training's binary_logloss: 0.293116 valid_1's binary_logloss: 0.393973
+[17]    training's binary_logloss: 0.280812 valid_1's binary_logloss: 0.384801
+[18]    training's binary_logloss: 0.268352 valid_1's binary_logloss: 0.376191
+[19]    training's binary_logloss: 0.256942 valid_1's binary_logloss: 0.368378
+[20]    training's binary_logloss: 0.246443 valid_1's binary_logloss: 0.362062
+[21]    training's binary_logloss: 0.236874 valid_1's binary_logloss: 0.355162
+[22]    training's binary_logloss: 0.227501 valid_1's binary_logloss: 0.348933
+[23]    training's binary_logloss: 0.218988 valid_1's binary_logloss: 0.342819
+[24]    training's binary_logloss: 0.210621 valid_1's binary_logloss: 0.337386
+[25]    training's binary_logloss: 0.202076 valid_1's binary_logloss: 0.331523
+[26]    training's binary_logloss: 0.194199 valid_1's binary_logloss: 0.326349
+[27]    training's binary_logloss: 0.187107 valid_1's binary_logloss: 0.322785
+[28]    training's binary_logloss: 0.180535 valid_1's binary_logloss: 0.317877
+[29]    training's binary_logloss: 0.173834 valid_1's binary_logloss: 0.313928
+[30]    training's binary_logloss: 0.167198 valid_1's binary_logloss: 0.310105
+[31]    training's binary_logloss: 0.161229 valid_1's binary_logloss: 0.307107
+[32]    training's binary_logloss: 0.155494 valid_1's binary_logloss: 0.303837
+[33]    training's binary_logloss: 0.149125 valid_1's binary_logloss: 0.300315
+[34]    training's binary_logloss: 0.144045 valid_1's binary_logloss: 0.297816
+[35]    training's binary_logloss: 0.139341 valid_1's binary_logloss: 0.295387
+[36]    training's binary_logloss: 0.134625 valid_1's binary_logloss: 0.293063
+[37]    training's binary_logloss: 0.129167 valid_1's binary_logloss: 0.289127
+[38]    training's binary_logloss: 0.12472  valid_1's binary_logloss: 0.288697
+[39]    training's binary_logloss: 0.11974  valid_1's binary_logloss: 0.28576
+[40]    training's binary_logloss: 0.115054 valid_1's binary_logloss: 0.282853
+[41]    training's binary_logloss: 0.110662 valid_1's binary_logloss: 0.279441
+[42]    training's binary_logloss: 0.106358 valid_1's binary_logloss: 0.28113
+[43]    training's binary_logloss: 0.102324 valid_1's binary_logloss: 0.279139
+[44]    training's binary_logloss: 0.0985699    valid_1's binary_logloss: 0.276465
+[45]    training's binary_logloss: 0.094858 valid_1's binary_logloss: 0.275946
+[46]    training's binary_logloss: 0.0912486    valid_1's binary_logloss: 0.272819
+[47]    training's binary_logloss: 0.0883115    valid_1's binary_logloss: 0.272306
+[48]    training's binary_logloss: 0.0849963    valid_1's binary_logloss: 0.270452
+[49]    training's binary_logloss: 0.0821742    valid_1's binary_logloss: 0.268671
+[50]    training's binary_logloss: 0.0789991    valid_1's binary_logloss: 0.267587
+[51]    training's binary_logloss: 0.0761072    valid_1's binary_logloss: 0.26626
+[52]    training's binary_logloss: 0.0732567    valid_1's binary_logloss: 0.265542
+[53]    training's binary_logloss: 0.0706388    valid_1's binary_logloss: 0.264547
+[54]    training's binary_logloss: 0.0683911    valid_1's binary_logloss: 0.26502
+[55]    training's binary_logloss: 0.0659347    valid_1's binary_logloss: 0.264388
+[56]    training's binary_logloss: 0.0636873    valid_1's binary_logloss: 0.263128
+[57]    training's binary_logloss: 0.0613354    valid_1's binary_logloss: 0.26231
+[58]    training's binary_logloss: 0.0591944    valid_1's binary_logloss: 0.262011
+[59]    training's binary_logloss: 0.057033 valid_1's binary_logloss: 0.261454
+[60]    training's binary_logloss: 0.0550801    valid_1's binary_logloss: 0.260746
+[61]    training's binary_logloss: 0.0532381    valid_1's binary_logloss: 0.260236
+[62]    training's binary_logloss: 0.0514074    valid_1's binary_logloss: 0.261586
+[63]    training's binary_logloss: 0.0494837    valid_1's binary_logloss: 0.261797
+[64]    training's binary_logloss: 0.0477826    valid_1's binary_logloss: 0.262533
+[65]    training's binary_logloss: 0.0460364    valid_1's binary_logloss: 0.263305
+[66]    training's binary_logloss: 0.0444552    valid_1's binary_logloss: 0.264072
+[67]    training's binary_logloss: 0.0427638    valid_1's binary_logloss: 0.266223
+[68]    training's binary_logloss: 0.0412449    valid_1's binary_logloss: 0.266817
+[69]    training's binary_logloss: 0.0398589    valid_1's binary_logloss: 0.267819
+[70]    training's binary_logloss: 0.0383095    valid_1's binary_logloss: 0.267484
+[71]    training's binary_logloss: 0.0368803    valid_1's binary_logloss: 0.270233
+[72]    training's binary_logloss: 0.0355637    valid_1's binary_logloss: 0.268442
+[73]    training's binary_logloss: 0.0341747    valid_1's binary_logloss: 0.26895
+[74]    training's binary_logloss: 0.0328302    valid_1's binary_logloss: 0.266958
+[75]    training's binary_logloss: 0.0317853    valid_1's binary_logloss: 0.268091
+[76]    training's binary_logloss: 0.0305626    valid_1's binary_logloss: 0.266419
+[77]    training's binary_logloss: 0.0295001    valid_1's binary_logloss: 0.268588
+[78]    training's binary_logloss: 0.0284699    valid_1's binary_logloss: 0.270964
+[79]    training's binary_logloss: 0.0273953    valid_1's binary_logloss: 0.270293
+[80]    training's binary_logloss: 0.0264668    valid_1's binary_logloss: 0.270523
+[81]    training's binary_logloss: 0.0254636    valid_1's binary_logloss: 0.270683
+[82]    training's binary_logloss: 0.0245911    valid_1's binary_logloss: 0.273187
+[83]    training's binary_logloss: 0.0236486    valid_1's binary_logloss: 0.275994
+[84]    training's binary_logloss: 0.0228047    valid_1's binary_logloss: 0.274053
+[85]    training's binary_logloss: 0.0221693    valid_1's binary_logloss: 0.273211
+[86]    training's binary_logloss: 0.0213043    valid_1's binary_logloss: 0.272626
+[87]    training's binary_logloss: 0.0203934    valid_1's binary_logloss: 0.27534
+[88]    training's binary_logloss: 0.0195552    valid_1's binary_logloss: 0.276228
+[89]    training's binary_logloss: 0.0188623    valid_1's binary_logloss: 0.27525
+[90]    training's binary_logloss: 0.0183664    valid_1's binary_logloss: 0.276485
+[91]    training's binary_logloss: 0.0176788    valid_1's binary_logloss: 0.277052
+[92]    training's binary_logloss: 0.0170059    valid_1's binary_logloss: 0.277686
+[93]    training's binary_logloss: 0.0164317    valid_1's binary_logloss: 0.275332
+[94]    training's binary_logloss: 0.015878 valid_1's binary_logloss: 0.276236
+[95]    training's binary_logloss: 0.0152959    valid_1's binary_logloss: 0.274538
+[96]    training's binary_logloss: 0.0147216    valid_1's binary_logloss: 0.275244
+[97]    training's binary_logloss: 0.0141758    valid_1's binary_logloss: 0.275829
+[98]    training's binary_logloss: 0.0136551    valid_1's binary_logloss: 0.276654
+[99]    training's binary_logloss: 0.0131585    valid_1's binary_logloss: 0.277859
+[100]   training's binary_logloss: 0.0126961    valid_1's binary_logloss: 0.279265
+[101]   training's binary_logloss: 0.0122421    valid_1's binary_logloss: 0.276695
+[102]   training's binary_logloss: 0.0118067    valid_1's binary_logloss: 0.278488
+[103]   training's binary_logloss: 0.0113994    valid_1's binary_logloss: 0.278932
+[104]   training's binary_logloss: 0.0109799    valid_1's binary_logloss: 0.280997
+[105]   training's binary_logloss: 0.0105953    valid_1's binary_logloss: 0.281454
+[106]   training's binary_logloss: 0.0102381    valid_1's binary_logloss: 0.282058
+[107]   training's binary_logloss: 0.00986714   valid_1's binary_logloss: 0.279275
+[108]   training's binary_logloss: 0.00950998   valid_1's binary_logloss: 0.281427
+[109]   training's binary_logloss: 0.00915965   valid_1's binary_logloss: 0.280752
+[110]   training's binary_logloss: 0.00882581   valid_1's binary_logloss: 0.282152
+[111]   training's binary_logloss: 0.00850714   valid_1's binary_logloss: 0.280894</code></pre>
+</div>
+</div>
+<div id="0c530aa0-c8dc-4d2a-ac21-1fa69156b595" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, accuracy_score</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> f1_score, roc_auc_score</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_clf_eval(y_test, pred<span class="op">=</span><span class="va">None</span>, pred_proba<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    confusion <span class="op">=</span> confusion_matrix( y_test, pred)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> accuracy_score(y_test , pred)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    precision <span class="op">=</span> precision_score(y_test , pred)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    recall <span class="op">=</span> recall_score(y_test , pred)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> f1_score(y_test,pred)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ROC-AUC 추가 </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> roc_auc_score(y_test, pred_proba)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'오차 행렬'</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(confusion)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ROC-AUC print 추가</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'정확도: </span><span class="sc">{0:.4f}</span><span class="st">, 정밀도: </span><span class="sc">{1:.4f}</span><span class="st">, 재현율: </span><span class="sc">{2:.4f}</span><span class="st">,</span><span class="op">\</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">    F1: </span><span class="sc">{3:.4f}</span><span class="st">, AUC:</span><span class="sc">{4:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(accuracy, precision, recall, f1, roc_auc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="f867fb38-4879-4c6c-a849-65e91cf93bc4" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>get_clf_eval(y_test, preds, pred_proba)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>오차 행렬
+[[34  3]
+ [ 2 75]]
+정확도: 0.9561, 정밀도: 0.9615, 재현율: 0.9740,    F1: 0.9677, AUC:0.9877</code></pre>
+</div>
+</div>
+<div id="598cd28a-c18e-4953-8b65-885129c3f6f1" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_importance()를 이용하여 feature 중요도 시각화</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> plot_importance</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">12</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plot_importance(lgbm_wrapper, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="4.7.LightGBM_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
