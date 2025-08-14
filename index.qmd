@@ -1,0 +1,11 @@
+---
+title: "Welcome"
+---
+
+# 👋 Welcome
+
+This is your AI portfolio & study blog built with **Quarto** and **GitHub Pages**.
+
+- Put your Jupyter notebooks under `notebooks/` (e.g., `notebooks/ML/week1_intro.ipynb`)
+- They will appear on the **Study Notes** page automatically after you push to GitHub.
+- Customize the site in `_quarto.yml`.

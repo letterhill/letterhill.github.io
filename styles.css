@@ -1,0 +1,4 @@
+/* Optional custom tweaks */
+.quarto-title-block .title { letter-spacing: .2px; }
+img { border-radius: 12px; }
+pre { border-radius: 12px; }

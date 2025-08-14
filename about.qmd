@@ -1,0 +1,9 @@
+---
+title: "About Me"
+---
+
+Write a short bio, interests, and contact info here.
+
+- University / Major
+- Interests (Generative AI, Data Engineering, Cloud AI, etc.)
+- Links (GitHub, LinkedIn, Email)

@@ -1,0 +1,8 @@
+---
+title: "Projects"
+---
+
+List your projects here. Each project can be a page or a section with links.
+
+- [Project A](#): short summary
+- [Project B](#): short summary

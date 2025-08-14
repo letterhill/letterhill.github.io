@@ -1,0 +1,23 @@
+---
+title: "Study Notes"
+listing:
+  contents:
+    - notebooks/**/*.ipynb
+    - notebooks/**/*.qmd
+  type: grid
+  sort: "date desc"
+  categories: true
+  fields: [title, date, categories, description]
+page-layout: full
+---
+
+All study notes are auto-listed below. Add a **YAML header** to each notebook (first Markdown cell) for nice titles, dates, and categories:
+
+```markdown
+---
+title: "Week 1 — Linear Regression"
+date: 2025-08-14
+categories: [ML, Study]
+description: "From hypothesis to gradient descent"
+---
+```

@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "My AI Portfolio"
+  description: "Study notes, projects, and blog powered by Quarto + GitHub Pages"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: study.qmd
+        text: Study Notes
+      - href: projects.qmd
+        text: Projects
+      - href: about.qmd
+        text: About
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+    page-layout: article
+
+execute:
+  echo: true
+  warning: false
+  freeze: auto
