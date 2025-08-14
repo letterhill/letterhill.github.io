@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>XGBoost 개요 – My AI Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My AI Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../study.html"> 
+<span class="menu-text">Study Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#파이썬-래퍼-xgboost-하이퍼-파라미터" id="toc-파이썬-래퍼-xgboost-하이퍼-파라미터" class="nav-link active" data-scroll-target="#파이썬-래퍼-xgboost-하이퍼-파라미터">파이썬 래퍼 XGBoost 하이퍼 파라미터</a>
+  <ul class="collapse">
+  <li><a href="#과적합이-심각하다면" id="toc-과적합이-심각하다면" class="nav-link" data-scroll-target="#과적합이-심각하다면">과적합이 심각하다면?</a></li>
+  <li><a href="#early-stopping-조기-중단-기능" id="toc-early-stopping-조기-중단-기능" class="nav-link" data-scroll-target="#early-stopping-조기-중단-기능">Early Stopping (조기 중단) 기능</a></li>
+  </ul></li>
+  <li><a href="#파이썬-래퍼-xgboost-적용---위스콘신-유방암-예측" id="toc-파이썬-래퍼-xgboost-적용---위스콘신-유방암-예측" class="nav-link" data-scroll-target="#파이썬-래퍼-xgboost-적용---위스콘신-유방암-예측">파이썬 래퍼 XGBoost 적용 - 위스콘신 유방암 예측</a></li>
+  <li><a href="#사이킷런-래퍼-xgboost" id="toc-사이킷런-래퍼-xgboost" class="nav-link" data-scroll-target="#사이킷런-래퍼-xgboost">사이킷런 래퍼 XGBoost</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">XGBoost 개요</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ul>
+<li>GBM의 단점인 느린 수행 시간 및 과적합 규제 부재 등의 문제를 해결함.</li>
+<li>파이썬 패키지명: xgboost<br>
+</li>
+</ul>
+<div id="e9893c83-7b17-405f-9fea-621e818f0ffa" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="파이썬-래퍼-xgboost-하이퍼-파라미터" class="level1">
+<h1>파이썬 래퍼 XGBoost 하이퍼 파라미터</h1>
+<ul>
+<li>사이킷런 래퍼/파이썬 래퍼 XGBoost의 파라미터에는 차이점이 있음 ## 일반 파라미터</li>
+<li>디폴트 값을 바꾸는 경우 거의 X</li>
+<li>booster: gbtree(default), gblinear</li>
+<li>silent: 0(default), 1(출력 메시지X)</li>
+<li>nthread: CPU의 실행 스레드 개수 조정 ## 부스터 파라미터</li>
+<li>트리 최적화, 부스팅, regularization 등 관련</li>
+<li>eta [default=0.3, alias: learning_rate]: 학습률 파라미터, 보통 0.01~0.2</li>
+<li>num_boost_rounds: n_estimators</li>
+<li>min_child_weight[default=1]: 과적합 조절, 클수록 분할 자제</li>
+<li>gamma[default=0, alias: min_split_loss]: 해당 값보다 큰 손실이 감소된 경우 리프 노드 분리, 클수록 과적합 감소</li>
+<li>max_depth[default=6]: 보통 3~10</li>
+<li>sub_samplt[default=1]: 0.5~1 ## 학습 태스크 파라미터 : 학습 수행 시의 객체 함수, 평가를 위한 지표 등</li>
+</ul>
+<section id="과적합이-심각하다면" class="level3">
+<h3 class="anchored" data-anchor-id="과적합이-심각하다면">과적합이 심각하다면?</h3>
+<ul>
+<li>eta 값 낮추기</li>
+<li>max_depth 낮추기</li>
+<li>min_child_weight, gamma 값 높이기</li>
+<li>subsample, colsamplt_bytree 조정</li>
+</ul>
+</section>
+<section id="early-stopping-조기-중단-기능" class="level2">
+<h2 class="anchored" data-anchor-id="early-stopping-조기-중단-기능">Early Stopping (조기 중단) 기능</h2>
+<p>: n_estimators에 도달하지 않더라도 예측 오류가 더 이상 개선되지 않으면 반복을 끝까지 수행X</p>
+<div id="c5ff9682-a684-4cdb-8b50-c332bc79e4b9" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xgboost.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>2.1.2</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="파이썬-래퍼-xgboost-적용---위스콘신-유방암-예측" class="level1">
+<h1>파이썬 래퍼 XGBoost 적용 - 위스콘신 유방암 예측</h1>
+<div id="077ac614-9c7b-4bd2-b2bc-1530f90e605a" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> plot_importance <span class="co"># 피처 중요도 시각화 모듈</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_breast_cancer()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> dataset.data</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> dataset.target</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>cancer_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>features, columns<span class="op">=</span>dataset.feature_names)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>cancer_df[<span class="st">'target'</span>] <span class="op">=</span> labels</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>cancer_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean radius</th>
+<th data-quarto-table-cell-role="th">mean texture</th>
+<th data-quarto-table-cell-role="th">mean perimeter</th>
+<th data-quarto-table-cell-role="th">mean area</th>
+<th data-quarto-table-cell-role="th">mean smoothness</th>
+<th data-quarto-table-cell-role="th">mean compactness</th>
+<th data-quarto-table-cell-role="th">mean concavity</th>
+<th data-quarto-table-cell-role="th">mean concave points</th>
+<th data-quarto-table-cell-role="th">mean symmetry</th>
+<th data-quarto-table-cell-role="th">mean fractal dimension</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">worst texture</th>
+<th data-quarto-table-cell-role="th">worst perimeter</th>
+<th data-quarto-table-cell-role="th">worst area</th>
+<th data-quarto-table-cell-role="th">worst smoothness</th>
+<th data-quarto-table-cell-role="th">worst compactness</th>
+<th data-quarto-table-cell-role="th">worst concavity</th>
+<th data-quarto-table-cell-role="th">worst concave points</th>
+<th data-quarto-table-cell-role="th">worst symmetry</th>
+<th data-quarto-table-cell-role="th">worst fractal dimension</th>
+<th data-quarto-table-cell-role="th">target</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>17.99</td>
+<td>10.38</td>
+<td>122.8</td>
+<td>1001.0</td>
+<td>0.11840</td>
+<td>0.27760</td>
+<td>0.3001</td>
+<td>0.14710</td>
+<td>0.2419</td>
+<td>0.07871</td>
+<td>...</td>
+<td>17.33</td>
+<td>184.6</td>
+<td>2019.0</td>
+<td>0.1622</td>
+<td>0.6656</td>
+<td>0.7119</td>
+<td>0.2654</td>
+<td>0.4601</td>
+<td>0.11890</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>20.57</td>
+<td>17.77</td>
+<td>132.9</td>
+<td>1326.0</td>
+<td>0.08474</td>
+<td>0.07864</td>
+<td>0.0869</td>
+<td>0.07017</td>
+<td>0.1812</td>
+<td>0.05667</td>
+<td>...</td>
+<td>23.41</td>
+<td>158.8</td>
+<td>1956.0</td>
+<td>0.1238</td>
+<td>0.1866</td>
+<td>0.2416</td>
+<td>0.1860</td>
+<td>0.2750</td>
+<td>0.08902</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>19.69</td>
+<td>21.25</td>
+<td>130.0</td>
+<td>1203.0</td>
+<td>0.10960</td>
+<td>0.15990</td>
+<td>0.1974</td>
+<td>0.12790</td>
+<td>0.2069</td>
+<td>0.05999</td>
+<td>...</td>
+<td>25.53</td>
+<td>152.5</td>
+<td>1709.0</td>
+<td>0.1444</td>
+<td>0.4245</td>
+<td>0.4504</td>
+<td>0.2430</td>
+<td>0.3613</td>
+<td>0.08758</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>3 rows × 31 columns</p>
+</div>
+</div>
+</div>
+<div id="985002b7-0def-423f-93ce-46f7076b4cd5" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dataset.target_names)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cancer_df[<span class="st">'target'</span>].value_counts()) <span class="co"># benign 1 양성 357개, malignant 0 음성 212개</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>['malignant' 'benign']
+target
+1    357
+0    212
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="2b24dd97-1fc4-46c7-a5d4-d5d2a8145334" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cancer_df에서 feature용 DF과 Label용 Series 객체 추출</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 맨 마지막 칼럼이 Label이므로 피처용을 :-1 슬라이싱으로 추출</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> cancer_df.iloc[:, :<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>y_label <span class="op">=</span> cancer_df.iloc[:, <span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="06691d23-b638-402b-a7b3-f1de55634060" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 데이터 중 80%는 학습, 20%는 테스트용</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_features, y_label, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">156</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습데이터를 쪼개서 90%는 학습, 10%는 검증용으로 분리 (조기중단을 위해서)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>X_tr, X_val, y_tr, y_val <span class="op">=</span> train_test_split(X_train, y_train, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">156</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_train.shape, X_test.shape)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_tr.shape, X_val.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(455, 30) (114, 30)
+(409, 30) (46, 30)</code></pre>
+</div>
+</div>
+<div id="6cee9b2f-c924-4eea-b5cb-7eace93a4ee1" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DMatrix: 파이썬 래퍼 XGBoost 만의 전용 데이터 객체</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습, 검증, 테스트용 DMatrix를 생성</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>dtr <span class="op">=</span> xgb.DMatrix(data<span class="op">=</span>X_tr, label<span class="op">=</span>y_tr)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>dval <span class="op">=</span> xgb.DMatrix(data<span class="op">=</span>X_val, label<span class="op">=</span>y_val)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>dtest <span class="op">=</span> xgb.DMatrix(data<span class="op">=</span>X_test, label<span class="op">=</span>y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="60f5a3e7-8d5c-461f-bf7f-5edbf72bcbbf" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {<span class="st">'max_depth'</span>:<span class="dv">3</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">'eta'</span>: <span class="fl">0.05</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">'objective'</span>: <span class="st">'binary:logistic'</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">'eval_metric'</span>: <span class="st">'logloss'</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         }</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>num_rounds <span class="op">=</span> <span class="dv">400</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="de9624ac-70af-4bff-9ac3-784de73a51f3" class="cell" data-execution_count="28">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습 데이터셋은 'train' 평가데이터셋은 'eval'로 명기</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>eval_list <span class="op">=</span> [(dtr, <span class="st">'train'</span>), (dval, <span class="st">'eval'</span>)] <span class="co"># eval_list = [(dval, 'eval')]만 명기해도 됨.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 하이퍼 파라미터와 early stopping 파라미터를 train() 함수의 파라미터로 전달</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> xgb.train(params <span class="op">=</span> params, dtrain<span class="op">=</span>dtr, num_boost_round<span class="op">=</span>num_rounds, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                      early_stopping_rounds<span class="op">=</span><span class="dv">50</span>, evals<span class="op">=</span>eval_list) <span class="co"># 400번으로 설정했지만 251회에서 멈춘 것을 확인할 수 있다.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0] train-logloss:0.62480   eval-logloss:0.63104
+[1] train-logloss:0.58674   eval-logloss:0.60478
+[2] train-logloss:0.55226   eval-logloss:0.58223
+[3] train-logloss:0.52086   eval-logloss:0.56184
+[4] train-logloss:0.49192   eval-logloss:0.54118
+[5] train-logloss:0.46537   eval-logloss:0.52223
+[6] train-logloss:0.44029   eval-logloss:0.50287
+[7] train-logloss:0.41666   eval-logloss:0.48620
+[8] train-logloss:0.39525   eval-logloss:0.46974
+[9] train-logloss:0.37542   eval-logloss:0.45497
+[10]    train-logloss:0.35701   eval-logloss:0.44131
+[11]    train-logloss:0.33982   eval-logloss:0.43134
+[12]    train-logloss:0.32297   eval-logloss:0.41972
+[13]    train-logloss:0.30725   eval-logloss:0.40902
+[14]    train-logloss:0.29327   eval-logloss:0.39883
+[15]    train-logloss:0.27946   eval-logloss:0.38968
+[16]    train-logloss:0.26691   eval-logloss:0.38150
+[17]    train-logloss:0.25473   eval-logloss:0.37368
+[18]    train-logloss:0.24385   eval-logloss:0.36666
+[19]    train-logloss:0.23338   eval-logloss:0.35994
+[20]    train-logloss:0.22320   eval-logloss:0.35374
+[21]    train-logloss:0.21363   eval-logloss:0.34704
+[22]    train-logloss:0.20487   eval-logloss:0.34206
+[23]    train-logloss:0.19634   eval-logloss:0.33621
+[24]    train-logloss:0.18830   eval-logloss:0.33178
+[25]    train-logloss:0.18093   eval-logloss:0.32774
+[26]    train-logloss:0.17374   eval-logloss:0.32297
+[27]    train-logloss:0.16695   eval-logloss:0.31855
+[28]    train-logloss:0.16059   eval-logloss:0.31495
+[29]    train-logloss:0.15450   eval-logloss:0.31173
+[30]    train-logloss:0.14875   eval-logloss:0.30735
+[31]    train-logloss:0.14329   eval-logloss:0.30463
+[32]    train-logloss:0.13807   eval-logloss:0.30242
+[33]    train-logloss:0.13325   eval-logloss:0.29922
+[34]    train-logloss:0.12864   eval-logloss:0.29722
+[35]    train-logloss:0.12429   eval-logloss:0.29540
+[36]    train-logloss:0.12000   eval-logloss:0.29300
+[37]    train-logloss:0.11581   eval-logloss:0.29010
+[38]    train-logloss:0.11210   eval-logloss:0.28883
+[39]    train-logloss:0.10838   eval-logloss:0.28769
+[40]    train-logloss:0.10481   eval-logloss:0.28574
+[41]    train-logloss:0.10160   eval-logloss:0.28434
+[42]    train-logloss:0.09832   eval-logloss:0.28226
+[43]    train-logloss:0.09534   eval-logloss:0.28006
+[44]    train-logloss:0.09249   eval-logloss:0.27854
+[45]    train-logloss:0.08972   eval-logloss:0.27747
+[46]    train-logloss:0.08700   eval-logloss:0.27654
+[47]    train-logloss:0.08461   eval-logloss:0.27598
+[48]    train-logloss:0.08225   eval-logloss:0.27415
+[49]    train-logloss:0.08001   eval-logloss:0.27245
+[50]    train-logloss:0.07784   eval-logloss:0.27104
+[51]    train-logloss:0.07578   eval-logloss:0.26958
+[52]    train-logloss:0.07384   eval-logloss:0.26869
+[53]    train-logloss:0.07196   eval-logloss:0.26760
+[54]    train-logloss:0.07021   eval-logloss:0.26661
+[55]    train-logloss:0.06833   eval-logloss:0.26680
+[56]    train-logloss:0.06671   eval-logloss:0.26517
+[57]    train-logloss:0.06519   eval-logloss:0.26412
+[58]    train-logloss:0.06368   eval-logloss:0.26444
+[59]    train-logloss:0.06202   eval-logloss:0.26434
+[60]    train-logloss:0.06048   eval-logloss:0.26208
+[61]    train-logloss:0.05898   eval-logloss:0.26139
+[62]    train-logloss:0.05756   eval-logloss:0.26155
+[63]    train-logloss:0.05614   eval-logloss:0.26114
+[64]    train-logloss:0.05486   eval-logloss:0.25973
+[65]    train-logloss:0.05372   eval-logloss:0.25878
+[66]    train-logloss:0.05263   eval-logloss:0.25758
+[67]    train-logloss:0.05140   eval-logloss:0.25664
+[68]    train-logloss:0.05019   eval-logloss:0.25625
+[69]    train-logloss:0.04910   eval-logloss:0.25593
+[70]    train-logloss:0.04806   eval-logloss:0.25438
+[71]    train-logloss:0.04704   eval-logloss:0.25373
+[72]    train-logloss:0.04606   eval-logloss:0.25411
+[73]    train-logloss:0.04514   eval-logloss:0.25316
+[74]    train-logloss:0.04435   eval-logloss:0.25248
+[75]    train-logloss:0.04347   eval-logloss:0.25271
+[76]    train-logloss:0.04260   eval-logloss:0.25282
+[77]    train-logloss:0.04178   eval-logloss:0.25165
+[78]    train-logloss:0.04099   eval-logloss:0.25181
+[79]    train-logloss:0.04022   eval-logloss:0.25210
+[80]    train-logloss:0.03942   eval-logloss:0.25194
+[81]    train-logloss:0.03875   eval-logloss:0.25254
+[82]    train-logloss:0.03799   eval-logloss:0.25264
+[83]    train-logloss:0.03727   eval-logloss:0.25280
+[84]    train-logloss:0.03657   eval-logloss:0.25281
+[85]    train-logloss:0.03586   eval-logloss:0.25219
+[86]    train-logloss:0.03530   eval-logloss:0.25288
+[87]    train-logloss:0.03464   eval-logloss:0.25226
+[88]    train-logloss:0.03401   eval-logloss:0.25167
+[89]    train-logloss:0.03347   eval-logloss:0.25258
+[90]    train-logloss:0.03297   eval-logloss:0.25331
+[91]    train-logloss:0.03240   eval-logloss:0.25373
+[92]    train-logloss:0.03184   eval-logloss:0.25323
+[93]    train-logloss:0.03136   eval-logloss:0.25240
+[94]    train-logloss:0.03086   eval-logloss:0.25324
+[95]    train-logloss:0.03035   eval-logloss:0.25280
+[96]    train-logloss:0.02985   eval-logloss:0.25215
+[97]    train-logloss:0.02937   eval-logloss:0.25179
+[98]    train-logloss:0.02892   eval-logloss:0.25143
+[99]    train-logloss:0.02853   eval-logloss:0.25180
+[100]   train-logloss:0.02810   eval-logloss:0.25151
+[101]   train-logloss:0.02769   eval-logloss:0.25158
+[102]   train-logloss:0.02729   eval-logloss:0.25130
+[103]   train-logloss:0.02689   eval-logloss:0.25094
+[104]   train-logloss:0.02654   eval-logloss:0.25054
+[105]   train-logloss:0.02617   eval-logloss:0.25030
+[106]   train-logloss:0.02580   eval-logloss:0.24850
+[107]   train-logloss:0.02545   eval-logloss:0.24829
+[108]   train-logloss:0.02509   eval-logloss:0.24828
+[109]   train-logloss:0.02475   eval-logloss:0.24881
+[110]   train-logloss:0.02443   eval-logloss:0.24912
+[111]   train-logloss:0.02405   eval-logloss:0.24791
+[112]   train-logloss:0.02374   eval-logloss:0.24846
+[113]   train-logloss:0.02341   eval-logloss:0.24931
+[114]   train-logloss:0.02314   eval-logloss:0.24832
+[115]   train-logloss:0.02286   eval-logloss:0.24889
+[116]   train-logloss:0.02255   eval-logloss:0.24866
+[117]   train-logloss:0.02227   eval-logloss:0.24925
+[118]   train-logloss:0.02197   eval-logloss:0.24679
+[119]   train-logloss:0.02172   eval-logloss:0.24787
+[120]   train-logloss:0.02141   eval-logloss:0.24846
+[121]   train-logloss:0.02112   eval-logloss:0.24683
+[122]   train-logloss:0.02088   eval-logloss:0.24650
+[123]   train-logloss:0.02061   eval-logloss:0.24497
+[124]   train-logloss:0.02037   eval-logloss:0.24529
+[125]   train-logloss:0.02012   eval-logloss:0.24516
+[126]   train-logloss:0.01987   eval-logloss:0.24576
+[127]   train-logloss:0.01967   eval-logloss:0.24576
+[128]   train-logloss:0.01943   eval-logloss:0.24563
+[129]   train-logloss:0.01922   eval-logloss:0.24533
+[130]   train-logloss:0.01900   eval-logloss:0.24591
+[131]   train-logloss:0.01881   eval-logloss:0.24593
+[132]   train-logloss:0.01858   eval-logloss:0.24582
+[133]   train-logloss:0.01839   eval-logloss:0.24619
+[134]   train-logloss:0.01824   eval-logloss:0.24631
+[135]   train-logloss:0.01805   eval-logloss:0.24669
+[136]   train-logloss:0.01785   eval-logloss:0.24660
+[137]   train-logloss:0.01770   eval-logloss:0.24584
+[138]   train-logloss:0.01753   eval-logloss:0.24465
+[139]   train-logloss:0.01734   eval-logloss:0.24458
+[140]   train-logloss:0.01720   eval-logloss:0.24385
+[141]   train-logloss:0.01703   eval-logloss:0.24422
+[142]   train-logloss:0.01690   eval-logloss:0.24423
+[143]   train-logloss:0.01673   eval-logloss:0.24408
+[144]   train-logloss:0.01655   eval-logloss:0.24381
+[145]   train-logloss:0.01641   eval-logloss:0.24311
+[146]   train-logloss:0.01629   eval-logloss:0.24322
+[147]   train-logloss:0.01614   eval-logloss:0.24360
+[148]   train-logloss:0.01597   eval-logloss:0.24328
+[149]   train-logloss:0.01582   eval-logloss:0.24314
+[150]   train-logloss:0.01571   eval-logloss:0.24315
+[151]   train-logloss:0.01556   eval-logloss:0.24289
+[152]   train-logloss:0.01537   eval-logloss:0.24363
+[153]   train-logloss:0.01523   eval-logloss:0.24404
+[154]   train-logloss:0.01510   eval-logloss:0.24383
+[155]   train-logloss:0.01493   eval-logloss:0.24435
+[156]   train-logloss:0.01478   eval-logloss:0.24425
+[157]   train-logloss:0.01467   eval-logloss:0.24361
+[158]   train-logloss:0.01455   eval-logloss:0.24294
+[159]   train-logloss:0.01440   eval-logloss:0.24340
+[160]   train-logloss:0.01428   eval-logloss:0.24323
+[161]   train-logloss:0.01417   eval-logloss:0.24310
+[162]   train-logloss:0.01409   eval-logloss:0.24247
+[163]   train-logloss:0.01393   eval-logloss:0.24311
+[164]   train-logloss:0.01380   eval-logloss:0.24269
+[165]   train-logloss:0.01368   eval-logloss:0.24268
+[166]   train-logloss:0.01360   eval-logloss:0.24242
+[167]   train-logloss:0.01345   eval-logloss:0.24306
+[168]   train-logloss:0.01335   eval-logloss:0.24220
+[169]   train-logloss:0.01328   eval-logloss:0.24116
+[170]   train-logloss:0.01317   eval-logloss:0.24117
+[171]   train-logloss:0.01308   eval-logloss:0.24126
+[172]   train-logloss:0.01299   eval-logloss:0.24046
+[173]   train-logloss:0.01292   eval-logloss:0.23993
+[174]   train-logloss:0.01284   eval-logloss:0.23985
+[175]   train-logloss:0.01275   eval-logloss:0.23994
+[176]   train-logloss:0.01268   eval-logloss:0.23986
+[177]   train-logloss:0.01260   eval-logloss:0.23996
+[178]   train-logloss:0.01253   eval-logloss:0.23943
+[179]   train-logloss:0.01243   eval-logloss:0.23847
+[180]   train-logloss:0.01236   eval-logloss:0.23842
+[181]   train-logloss:0.01226   eval-logloss:0.23885
+[182]   train-logloss:0.01220   eval-logloss:0.23828
+[183]   train-logloss:0.01214   eval-logloss:0.23892
+[184]   train-logloss:0.01205   eval-logloss:0.23804
+[185]   train-logloss:0.01198   eval-logloss:0.23799
+[186]   train-logloss:0.01191   eval-logloss:0.23809
+[187]   train-logloss:0.01185   eval-logloss:0.23752
+[188]   train-logloss:0.01176   eval-logloss:0.23662
+[189]   train-logloss:0.01170   eval-logloss:0.23659
+[190]   train-logloss:0.01163   eval-logloss:0.23668
+[191]   train-logloss:0.01157   eval-logloss:0.23732
+[192]   train-logloss:0.01152   eval-logloss:0.23726
+[193]   train-logloss:0.01146   eval-logloss:0.23722
+[194]   train-logloss:0.01141   eval-logloss:0.23715
+[195]   train-logloss:0.01136   eval-logloss:0.23661
+[196]   train-logloss:0.01128   eval-logloss:0.23673
+[197]   train-logloss:0.01126   eval-logloss:0.23651
+[198]   train-logloss:0.01120   eval-logloss:0.23628
+[199]   train-logloss:0.01113   eval-logloss:0.23641
+[200]   train-logloss:0.01108   eval-logloss:0.23554
+[201]   train-logloss:0.01103   eval-logloss:0.23533
+[202]   train-logloss:0.01097   eval-logloss:0.23543
+[203]   train-logloss:0.01091   eval-logloss:0.23546
+[204]   train-logloss:0.01086   eval-logloss:0.23588
+[205]   train-logloss:0.01079   eval-logloss:0.23600
+[206]   train-logloss:0.01074   eval-logloss:0.23578
+[207]   train-logloss:0.01069   eval-logloss:0.23597
+[208]   train-logloss:0.01064   eval-logloss:0.23601
+[209]   train-logloss:0.01058   eval-logloss:0.23613
+[210]   train-logloss:0.01054   eval-logloss:0.23592
+[211]   train-logloss:0.01047   eval-logloss:0.23605
+[212]   train-logloss:0.01045   eval-logloss:0.23586
+[213]   train-logloss:0.01041   eval-logloss:0.23626
+[214]   train-logloss:0.01036   eval-logloss:0.23646
+[215]   train-logloss:0.01031   eval-logloss:0.23649
+[216]   train-logloss:0.01026   eval-logloss:0.23697
+[217]   train-logloss:0.01024   eval-logloss:0.23679
+[218]   train-logloss:0.01019   eval-logloss:0.23689
+[219]   train-logloss:0.01014   eval-logloss:0.23693
+[220]   train-logloss:0.01011   eval-logloss:0.23714
+[221]   train-logloss:0.01006   eval-logloss:0.23732
+[222]   train-logloss:0.01004   eval-logloss:0.23714
+[223]   train-logloss:0.01001   eval-logloss:0.23736
+[224]   train-logloss:0.00999   eval-logloss:0.23711
+[225]   train-logloss:0.00997   eval-logloss:0.23703
+[226]   train-logloss:0.00994   eval-logloss:0.23757
+[227]   train-logloss:0.00992   eval-logloss:0.23740
+[228]   train-logloss:0.00986   eval-logloss:0.23673
+[229]   train-logloss:0.00984   eval-logloss:0.23649
+[230]   train-logloss:0.00981   eval-logloss:0.23670
+[231]   train-logloss:0.00979   eval-logloss:0.23653
+[232]   train-logloss:0.00975   eval-logloss:0.23671
+[233]   train-logloss:0.00971   eval-logloss:0.23674
+[234]   train-logloss:0.00968   eval-logloss:0.23696
+[235]   train-logloss:0.00966   eval-logloss:0.23673
+[236]   train-logloss:0.00964   eval-logloss:0.23656
+[237]   train-logloss:0.00961   eval-logloss:0.23708
+[238]   train-logloss:0.00957   eval-logloss:0.23764
+[239]   train-logloss:0.00954   eval-logloss:0.23766
+[240]   train-logloss:0.00949   eval-logloss:0.23778
+[241]   train-logloss:0.00948   eval-logloss:0.23775
+[242]   train-logloss:0.00945   eval-logloss:0.23796
+[243]   train-logloss:0.00943   eval-logloss:0.23780
+[244]   train-logloss:0.00941   eval-logloss:0.23827
+[245]   train-logloss:0.00940   eval-logloss:0.23819
+[246]   train-logloss:0.00937   eval-logloss:0.23840
+[247]   train-logloss:0.00935   eval-logloss:0.23838
+[248]   train-logloss:0.00933   eval-logloss:0.23821
+[249]   train-logloss:0.00931   eval-logloss:0.23872
+[250]   train-logloss:0.00925   eval-logloss:0.23805
+[251]   train-logloss:0.00924   eval-logloss:0.23783</code></pre>
+</div>
+</div>
+<div id="9ce4605a-c1a1-4254-acc0-a036c179df22" class="cell" data-execution_count="30">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 사이킷런 래퍼의 predict()는 예측 결과 클래스 값을 반환하는데, xgboost의 predict()는 예측 결과를 추정할 수 있는 확률 값을 반환한다.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 따라서 이진 분류 로직을 좀 추가하면 됨.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>pred_probs <span class="op">=</span> xgb_model.predict(dtest)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'predict() 수행 결괏값을 10개만 표시, 예측 확률 값으로 표시됨'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(pred_probs[:<span class="dv">10</span>],<span class="dv">3</span>))</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측 확률이 0.5보다 크면 1, 그렇지 않으면 0으로 예측값 결정하여 List 객체인 preds에 저장</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> [ <span class="dv">1</span> <span class="cf">if</span> x<span class="op">&gt;</span><span class="fl">0.5</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> x <span class="kw">in</span> pred_probs]</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'예측값 10개만 표시: '</span>, preds[:<span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>predict() 수행 결괏값을 10개만 표시, 예측 확률 값으로 표시됨
+[0.938 0.004 0.75  0.049 0.98  1.    0.999 0.999 0.998 0.001]
+예측값 10개만 표시:  [1, 0, 1, 0, 1, 1, 1, 1, 1, 0]</code></pre>
+</div>
+</div>
+<div id="351eeb66-f283-48ea-8a99-7dbf3435126c" class="cell" data-execution_count="36">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, accuracy_score</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> f1_score, roc_auc_score</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_clf_eval(y_test, pred<span class="op">=</span><span class="va">None</span>, pred_proba<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    confusion <span class="op">=</span> confusion_matrix( y_test, pred)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> accuracy_score(y_test , pred)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    precision <span class="op">=</span> precision_score(y_test , pred)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    recall <span class="op">=</span> recall_score(y_test , pred)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> f1_score(y_test,pred)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ROC-AUC 추가 </span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> roc_auc_score(y_test, pred_proba)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'오차 행렬'</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(confusion)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ROC-AUC print 추가</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'정확도: </span><span class="sc">{0:.4f}</span><span class="st">, 정밀도: </span><span class="sc">{1:.4f}</span><span class="st">, 재현율: </span><span class="sc">{2:.4f}</span><span class="st">,</span><span class="op">\</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="st">    F1: </span><span class="sc">{3:.4f}</span><span class="st">, AUC:</span><span class="sc">{4:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(accuracy, precision, recall, f1, roc_auc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="ec0601fb-494e-482d-b6f6-4296b05168f0" class="cell" data-execution_count="38">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>get_clf_eval(y_test, preds, pred_probs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>오차 행렬
+[[35  2]
+ [ 2 75]]
+정확도: 0.9649, 정밀도: 0.9740, 재현율: 0.9740,    F1: 0.9740, AUC:0.9965</code></pre>
+</div>
+</div>
+<div id="6a657ddf-5454-4ab3-a6a4-67435b35edbf" class="cell" data-execution_count="40">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">12</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plot_importance(xgb_model, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="4..6 XGBoost_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="사이킷런-래퍼-xgboost" class="level1">
+<h1>사이킷런 래퍼 XGBoost</h1>
+<div id="8c19a051-074e-4826-8413-99bcabaaaf09" class="cell" data-execution_count="50">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 사이킷런 래퍼 XGBoost인 XGBxClassifier 임포트</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>xgb_wrapper <span class="op">=</span> XGBClassifier(n_estimators<span class="op">=</span><span class="dv">400</span>, learning_rate<span class="op">=</span><span class="fl">0.05</span>, max_depth<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                            eval_metric<span class="op">=</span><span class="st">'logloss'</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>xgb_wrapper.fit(X_train, y_train, verbose<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>w_preds <span class="op">=</span> xgb_wrapper.predict(X_test)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>w_pred_proba <span class="op">=</span> xgb_wrapper.predict_proba(X_test)[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="e281c62c-dd2b-477e-9f8a-36c8214e3e77" class="cell" data-execution_count="52">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>get_clf_eval(y_test, w_preds, w_pred_proba)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>오차 행렬
+[[35  2]
+ [ 1 76]]
+정확도: 0.9737, 정밀도: 0.9744, 재현율: 0.9870,    F1: 0.9806, AUC:0.9954</code></pre>
+</div>
+</div>
+<div id="2b267f3c-18ed-4e8d-903f-c996e8ecbe12" class="cell" data-execution_count="54">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>xgb_wrapper <span class="op">=</span> XGBClassifier(n_estimators<span class="op">=</span><span class="dv">400</span>, learning_rate<span class="op">=</span><span class="fl">0.1</span>, max_depth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>evals <span class="op">=</span> [(X_test, y_test)]</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>xgb_wrapper.fit(X_train, y_train, early_stopping_rounds<span class="op">=</span><span class="dv">100</span>, eval_metric<span class="op">=</span><span class="st">"logloss"</span>, </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                eval_set<span class="op">=</span>evals, verbose<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>ws100_preds <span class="op">=</span> xgb_wrapper.predict(X_test)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>ws100_pred_proba <span class="op">=</span> xgb_wrapper.predict_proba(X_test)[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg ansi-bold">In[54], line 5</span>
+<span class="ansi-green-fg">      3</span> xgb_wrapper <span style="color:rgb(98,98,98)">=</span> XGBClassifier(n_estimators<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(98,98,98)">400</span>, learning_rate<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(98,98,98)">0.1</span>, max_depth<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(98,98,98)">3</span>)
+<span class="ansi-green-fg">      4</span> evals <span style="color:rgb(98,98,98)">=</span> [(X_test, y_test)]
+<span class="ansi-green-fg ansi-bold">----&gt; 5</span> xgb_wrapper<span style="color:rgb(98,98,98)">.</span>fit(X_train, y_train, early_stopping_rounds<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(98,98,98)">100</span>, eval_metric<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">logloss</span><span style="color:rgb(175,0,0)">"</span>, 
+<span class="ansi-green-fg">      6</span>                 eval_set<span style="color:rgb(98,98,98)">=</span>evals, verbose<span style="color:rgb(98,98,98)">=</span><span style="font-weight:bold;color:rgb(0,135,0)">True</span>)
+<span class="ansi-green-fg">      8</span> ws100_preds <span style="color:rgb(98,98,98)">=</span> xgb_wrapper<span style="color:rgb(98,98,98)">.</span>predict(X_test)
+<span class="ansi-green-fg">      9</span> ws100_pred_proba <span style="color:rgb(98,98,98)">=</span> xgb_wrapper<span style="color:rgb(98,98,98)">.</span>predict_proba(X_test)[:, <span style="color:rgb(98,98,98)">1</span>]
+
+File <span class="ansi-green-fg ansi-bold">~\anaconda3\Lib\site-packages\xgboost\core.py:726</span>, in <span class="ansi-cyan-fg">require_keyword_args.&lt;locals&gt;.throw_if.&lt;locals&gt;.inner_f</span><span class="ansi-blue-fg ansi-bold">(*args, **kwargs)</span>
+<span class="ansi-green-fg">    724</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> k, arg <span style="font-weight:bold;color:rgb(175,0,255)">in</span> <span style="color:rgb(0,135,0)">zip</span>(sig<span style="color:rgb(98,98,98)">.</span>parameters, args):
+<span class="ansi-green-fg">    725</span>     kwargs[k] <span style="color:rgb(98,98,98)">=</span> arg
+<span class="ansi-green-fg ansi-bold">--&gt; 726</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> func(<span style="color:rgb(98,98,98)">*</span><span style="color:rgb(98,98,98)">*</span>kwargs)
+
+<span class="ansi-red-fg ansi-bold">TypeError</span>: XGBClassifier.fit() got an unexpected keyword argument 'early_stopping_rounds'</pre>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
