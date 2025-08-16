@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     const options = {
       valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -212,7 +212,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(11)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(13)</span></div><div class="category" data-category="TUw=">ML <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -241,14 +241,16 @@ window.Quarto = {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2025-08-14</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [ML, Study]</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "From hypothesis to gradient descent"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Machine Learning Notes</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Regression</span><span class="co">](notebooks\ML\5.회귀-checkpoint.ipynb)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1755136146262" data-listing-reading-time-sort="1" data-listing-word-count-sort="70">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1755328922750" data-listing-reading-time-sort="1" data-listing-word-count-sort="70">
 <a href="./notebooks/ML/1장 공부.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -257,16 +259,13 @@ window.Quarto = {
 </h5>
 <div class="card-text listing-description delink">
 
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div>
-</details>
 
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1755136146262" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1755328922751" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./notebooks/ML/2.6 사이킷런_타이타닉.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -275,19 +274,18 @@ window.Quarto = {
 </h5>
 <div class="card-text listing-description delink">
 
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-5"></span>
-<span id="cb1-6">titanic_df <span class="op">=</span> pd.read_csv(<span class="vs">r"C:</span><span class="er">\</span><span class="vs">Users</span><span class="er">\</span><span class="vs">HOME</span><span class="dv">\D</span><span class="vs">ownloads</span><span class="ch">\a</span><span class="vs">rchive</span><span class="er">\</span><span class="vs">Titanic-Dataset</span><span class="dv">.</span><span class="vs">c…</span></span><span id="cb1-7"><span class="dv"></span></span></code></pre></div></details><div class="cell-output cell-output-display" data-execution_count="11"><div><table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1"><thead><tr class="header"><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th></tr></thead><tbody><tr class="odd"><td data-quarto-table-cell-role="th"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="even"><td data-quarto-table-cell-role="th"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="odd"><td data-quarto-table-cell-role="th"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
+<span id="cb1-6">titanic_df <span class="op">=</span> pd.read_csv(<span class="vs">r"C:</span><span class="er">\</span><span class="vs">Users</span><span class="er">\</span><span class="vs">HOME</span><span class="dv">\D</span><span class="vs">ownloads</span><span class="ch">\a</span><span class="vs">rchive</span><span class="er">\</span><span class="vs">Titanic-Dataset</span><span class="dv">.</span><span class="vs">csv"</span>)</span>
+<span id="cb1-7">t…<span class="dv"></span></span></code></pre></div><div class="cell-output cell-output-display" data-execution_count="11"><div><table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1"><thead><tr class="header"><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th><th data-quarto-table-cell-role="th"></th></tr></thead><tbody><tr class="odd"><td data-quarto-table-cell-role="th"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="even"><td data-quarto-table-cell-role="th"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="odd"><td data-quarto-table-cell-role="th"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1755136146262" data-listing-reading-time-sort="1" data-listing-word-count-sort="111">
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1755328922751" data-listing-reading-time-sort="1" data-listing-word-count-sort="111">
 <a href="./notebooks/ML/2장_사이킷런.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -300,7 +298,7 @@ Model Selection 소개
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-listing-file-modified-sort="1755136146263" data-listing-reading-time-sort="1" data-listing-word-count-sort="48">
+<div class="g-col-1" data-index="3" data-listing-file-modified-sort="1755328922751" data-listing-reading-time-sort="1" data-listing-word-count-sort="48">
 <a href="./notebooks/ML/3장.평가.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -309,11 +307,8 @@ Model Selection 소개
 </h5>
 <div class="card-text listing-description delink">
 
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im">import</span> sklearn</span>
 <span id="cb1-2"><span class="bu">print</span>(sklearn.__version__)</span></code></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>1.4.2</code></pre>
 </div>
@@ -322,7 +317,7 @@ Model Selection 소개
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="4" data-listing-file-modified-sort="1755136146263" data-listing-reading-time-sort="1" data-listing-word-count-sort="142">
+<div class="g-col-1" data-index="4" data-listing-file-modified-sort="1755328922752" data-listing-reading-time-sort="1" data-listing-word-count-sort="142">
 <a href="./notebooks/ML/4..6 XGBoost.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -335,7 +330,7 @@ XGBoost 개요
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="5" data-listing-file-modified-sort="1755136146264" data-listing-reading-time-sort="1" data-listing-word-count-sort="159">
+<div class="g-col-1" data-index="5" data-listing-file-modified-sort="1755328922752" data-listing-reading-time-sort="1" data-listing-word-count-sort="159">
 <a href="./notebooks/ML/4.3. 앙상블.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -348,7 +343,7 @@ XGBoost 개요
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="6" data-listing-file-modified-sort="1755136146264" data-listing-reading-time-sort="1" data-listing-word-count-sort="68">
+<div class="g-col-1" data-index="6" data-listing-file-modified-sort="1755328922752" data-listing-reading-time-sort="1" data-listing-word-count-sort="68">
 <a href="./notebooks/ML/4.4. 랜덤 포레스트.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -366,7 +361,7 @@ XGBoost 개요
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="7" data-listing-file-modified-sort="1755136146264" data-listing-reading-time-sort="1" data-listing-word-count-sort="69">
+<div class="g-col-1" data-index="7" data-listing-file-modified-sort="1755328922753" data-listing-reading-time-sort="1" data-listing-word-count-sort="69">
 <a href="./notebooks/ML/4.7.LightGBM.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -383,7 +378,7 @@ XGBoost 개요
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="8" data-listing-file-modified-sort="1755136146264">
+<div class="g-col-1" data-index="8" data-listing-file-modified-sort="1755328922753">
 <a href="./notebooks/ML/4.9 분류 실습 - 캐글 산탄데르 고객 만족 예측.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -393,7 +388,7 @@ XGBoost 개요
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="9" data-listing-file-modified-sort="1755136146265" data-listing-reading-time-sort="1" data-listing-word-count-sort="10">
+<div class="g-col-1" data-index="9" data-listing-file-modified-sort="1755328922754" data-listing-reading-time-sort="1" data-listing-word-count-sort="10">
 <a href="./notebooks/ML/4장.분류.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -402,18 +397,29 @@ XGBoost 개요
 </h5>
 <div class="card-text listing-description delink">
 
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb1-2"><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
 <span id="cb1-3"><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-4"><span class="im">import</span> warnings</span>
-<span id="cb1-5">warnings.fi…<span class="st"></span></span><span id="cb1-6"></span><span id="cb1-7"><span class="op"></span></span><span id="cb1-8"></span><span id="cb1-9"><span class="op"></span></span><span id="cb1-10"><span class="op"></span></span><span id="cb1-11"><span class="op"></span><span class="fl"></span></span><span id="cb1-12"></span></code></pre></div></details><div class="cell-output cell-output-display" data-execution_count="1"><style></style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre></pre><b><br></b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted"><span></span><span class="sk-estimator-doc-link fitted"><span></span></span></label><div class="sk-toggleable__content fitted"><pre></pre></div></div></div></div></div></div>
+<span id="cb1-5">warnings.filterwa…<span class="st"></span></span><span id="cb1-6"></span><span id="cb1-7"><span class="op"></span></span><span id="cb1-8"></span><span id="cb1-9"><span class="op"></span></span><span id="cb1-10"><span class="op"></span></span><span id="cb1-11"><span class="op"></span><span class="fl"></span></span><span id="cb1-12"></span></code></pre></div><div class="cell-output cell-output-display" data-execution_count="1"><style></style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre></pre><b><br></b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted"><span></span><span class="sk-estimator-doc-link fitted"><span></span></span></label><div class="sk-toggleable__content fitted"><pre></pre></div></div></div></div></div></div>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="10" data-listing-file-modified-sort="1755136146268" data-listing-reading-time-sort="2" data-listing-word-count-sort="229">
+<div class="g-col-1" data-index="10" data-listing-file-modified-sort="1755328922754" data-listing-reading-time-sort="2" data-listing-word-count-sort="229">
+<a href="./notebooks/ML/5.6 규제 선형 모델-checkpoint.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+규제 선형 모델이란?
+</h5>
+<div class="card-text listing-description delink">
+-&gt; alpha의 크기가 증가함에 따라 일부 피처의 회귀 계수는 아예 0으로 바뀐다.; 피처 선택의 효과!
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="11" data-listing-file-modified-sort="1755328922758" data-listing-reading-time-sort="2" data-listing-word-count-sort="229">
 <a href="./notebooks/ML/5.회귀.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -422,6 +428,29 @@ XGBoost 개요
 </h5>
 <div class="card-text listing-description delink">
 : 피처 간의 상관관계가 너무 높아 분산이 매우 커져서 오류에 민감해지는 문제. * 상간관게가 높은 피처가 많은 경우 -&gt; 독립적인 중요한 피처만 남기고 제거하거나 규제를 적용
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="12" data-categories="TUw=" data-listing-date-sort="1755216000000" data-listing-file-modified-sort="1755328922757" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350">
+<a href="./notebooks/ML/5.회귀-checkpoint.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+5.5 회귀
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('TUw='); return false;">ML</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>회귀 5.1~5.5</p>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Aug 15, 2025
+</div>
 </div>
 </div>
 </div></a>

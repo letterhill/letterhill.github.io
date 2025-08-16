@@ -185,8 +185,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div id="60f2c06f-6b48-4b9f-b56e-b660653dcffb" class="cell" data-execution_count="11">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -194,7 +192,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>titanic_df <span class="op">=</span> pd.read_csv(<span class="vs">r"C:</span><span class="er">\</span><span class="vs">Users</span><span class="er">\</span><span class="vs">HOME</span><span class="dv">\D</span><span class="vs">ownloads</span><span class="ch">\a</span><span class="vs">rchive</span><span class="er">\</span><span class="vs">Titanic-Dataset</span><span class="dv">.</span><span class="vs">csv"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>titanic_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
@@ -270,12 +267,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="6d09c4b2-82ed-4027-b8b9-35a19de85851" class="cell" data-execution_count="13">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"데이터 정보"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">""</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(titanic_df.info())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>데이터 정보
 
@@ -302,26 +296,20 @@ None</code></pre>
 </div>
 </div>
 <div id="879c18be-defe-4098-959c-ebd6b3ea8e76" class="cell" data-execution_count="17">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>titanic_df[<span class="st">'Age'</span>].fillna(titanic_df[<span class="st">'Age'</span>].mean(), inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>titanic_df[<span class="st">'Cabin'</span>].fillna(<span class="st">'N'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>titanic_df[<span class="st">'Embarked'</span>].fillna(<span class="st">'N'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Null 갯수"</span>, titanic_df.isnull().<span class="bu">sum</span>().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Null 갯수 0</code></pre>
 </div>
 </div>
 <div id="efb0874f-7bdc-4c09-b43f-d97d8d344660" class="cell" data-execution_count="21">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Sex 값 분포:</span><span class="ch">\n</span><span class="st">'</span>, titanic_df[<span class="st">'Sex'</span>].value_counts())</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st"> Cabin 값 분포: </span><span class="ch">\n</span><span class="st">'</span>, titanic_df[<span class="st">'Cabin'</span>].value_counts())</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st"> Embarked 값 분포: </span><span class="ch">\n</span><span class="st">'</span>, titanic_df[<span class="st">'Embarked'</span>].value_counts())</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cabin 칼럼 데이터의 경우 정리가 이상하게 되어 있음.</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 앞자리 알파벳(등급)이 중요한 의미를 가지므로 데이터를 처리해보자.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sex 값 분포:
  Sex
@@ -354,12 +342,9 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <div id="dc331672-fa95-420a-a264-21eb1fec5fa4" class="cell" data-execution_count="23">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cabin 데이터 값의 앞글자만 떼어내기</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>titanic_df[<span class="st">'Cabin'</span>] <span class="op">=</span> titanic_df[<span class="st">'Cabin'</span>].<span class="bu">str</span>[:<span class="dv">1</span>]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(titanic_df[<span class="st">'Cabin'</span>].head(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>0    N
 1    C
@@ -368,10 +353,7 @@ Name: Cabin, dtype: object</code></pre>
 </div>
 </div>
 <div id="c746dadd-8854-4e7f-9a9c-a9e916127bfe" class="cell" data-execution_count="25">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>titanic_df.groupby([<span class="st">'Sex'</span>, <span class="st">'Survived'</span>])[<span class="st">'Survived'</span>].count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>Sex     Survived
 female  0            81
@@ -382,12 +364,9 @@ Name: Survived, dtype: int64</code></pre>
 </div>
 </div>
 <div id="30a842d8-39a8-4a97-bacf-2c71f10f84bd" class="cell" data-execution_count="29">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 시본 클래스를 이용해서 성별에 따른 생존율 시각화</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'Sex'</span>, y<span class="op">=</span><span class="st">'Survived'</span>, data<span class="op">=</span>titanic_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -397,11 +376,8 @@ Name: Survived, dtype: int64</code></pre>
 </div>
 </div>
 <div id="7c756b88-dd15-4582-8406-6d72660adda2" class="cell" data-execution_count="35">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 좌석 등급과 성별에 따른 생존율 </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'Pclass'</span>, y<span class="op">=</span><span class="st">'Survived'</span>, hue<span class="op">=</span><span class="st">'Sex'</span>, data<span class="op">=</span>titanic_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -411,8 +387,6 @@ Name: Survived, dtype: int64</code></pre>
 </div>
 </div>
 <div id="7c926d0f-23a7-4583-bb7d-2c9a8e5123a2" class="cell" data-execution_count="37">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 입력 age에 따라 구분값을 반환하는 함수 설정. DF의 apply lambda식에 사용</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_category(age):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    cat<span class="op">=</span><span class="st">''</span></span>
@@ -438,7 +412,6 @@ Name: Survived, dtype: int64</code></pre>
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>titanic_df[<span class="st">'Age_cat'</span>]<span class="op">=</span>titanic_df[<span class="st">'Age'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: get_category(x))</span>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'Age_cat'</span>, y<span class="op">=</span><span class="st">'Survived'</span>, hue<span class="op">=</span><span class="st">'Sex'</span>, data<span class="op">=</span>titanic_df, order<span class="op">=</span>group_names)</span>
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>titanic_df.drop(<span class="st">'Age_cat'</span>, axis<span class="op">=</span><span class="dv">1</span>, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -448,8 +421,6 @@ Name: Survived, dtype: int64</code></pre>
 </div>
 </div>
 <div id="ceb9f1ef-32a5-44aa-84d3-2f5a8f2de23b" class="cell" data-execution_count="39">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> preprocessing</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> encode_features(dataDF):</span>
@@ -462,7 +433,6 @@ Name: Survived, dtype: int64</code></pre>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dataDF</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>titanic_df <span class="op">=</span> encode_features(titanic_df)</span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>titanic_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="39">
 <div>
 
@@ -568,8 +538,6 @@ Name: Survived, dtype: int64</code></pre>
 </div>
 </div>
 <div id="96f0d0d1-3873-4052-8940-aadbfbe57088" class="cell" data-execution_count="57">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Null 처리 함수</span></span>
@@ -602,29 +570,20 @@ Name: Survived, dtype: int64</code></pre>
 <span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> drop_features(df)</span>
 <span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> format_features(df)</span>
 <span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="d8d9a887-c897-4847-8da1-891d9161cde8" class="cell" data-execution_count="59">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>titanic_df <span class="op">=</span> pd.read_csv(<span class="vs">r"C:</span><span class="er">\</span><span class="vs">Users</span><span class="er">\</span><span class="vs">HOME</span><span class="dv">\D</span><span class="vs">ownloads</span><span class="ch">\a</span><span class="vs">rchive</span><span class="er">\</span><span class="vs">Titanic-Dataset</span><span class="dv">.</span><span class="vs">csv"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>y_titanic_df <span class="op">=</span> titanic_df[<span class="st">'Survived'</span>]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>X_titanic_df <span class="op">=</span> titanic_df.drop(<span class="st">'Survived'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>X_titanic_df <span class="op">=</span> transform_features(X_titanic_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="0d9cf166-1205-4b5b-a799-dd981841c0ef" class="cell" data-execution_count="61">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_titanic_df, y_titanic_df,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                                   test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="dfdb7e1a-efb9-4dc6-b77b-76c3c105d5d3" class="cell" data-execution_count="69">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -649,7 +608,6 @@ Name: Survived, dtype: int64</code></pre>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>lr_clf.fit(X_train, y_train)</span>
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>lr_pred <span class="op">=</span> lr_clf.predict(X_test)</span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'LR 정확도: </span><span class="sc">{0:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(accuracy_score(y_test, lr_pred)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>DT 정확도: 0.8045
 RF 정확도: 0.8436
@@ -657,8 +615,6 @@ LR 정확도: 0.8492</code></pre>
 </div>
 </div>
 <div id="fe551eb2-3782-4f05-84cd-3368faca21a3" class="cell" data-execution_count="84">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exec_kfold(clf, folds<span class="op">=</span><span class="dv">5</span>):</span>
@@ -679,7 +635,6 @@ LR 정확도: 0.8492</code></pre>
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"평균 정확도: </span><span class="sc">{0:.4f}</span><span class="st">"</span>.<span class="bu">format</span>(mean_score))</span>
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>exec_kfold(dt_clf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>교차 검증 0 정확도:  0.748603
 교차 검증 1 정확도:  0.764045
@@ -692,8 +647,6 @@ LR 정확도: 0.8492</code></pre>
 <section id="최적-변수-찾기" class="level3">
 <h3 class="anchored" data-anchor-id="최적-변수-찾기">최적 변수 찾기</h3>
 <div id="7bfdde99-c72c-4cee-a21e-255327600fbc" class="cell" data-execution_count="87">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>parameters <span class="op">=</span> {<span class="st">'max_depth'</span>: [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">10</span>],</span>
@@ -710,7 +663,6 @@ LR 정확도: 0.8492</code></pre>
 <span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>dpredictions <span class="op">=</span> best_dclf.predict(X_test)</span>
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, dpredictions)</span>
 <span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'테스트 세트에서의 정확도: </span><span class="sc">{0:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(accuracy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>GridSearchCV 최적 하이퍼 파라미터:  {'max_depth': 3, 'min_samples_leaf': 5, 'min_samples_split': 2}
 GridSearchCV 최고 정확도: 0.7992

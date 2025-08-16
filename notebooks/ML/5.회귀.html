@@ -246,17 +246,12 @@ window.Quarto = {
 <li>w_0, w_1에 대해 각각 편미분한 값을 업데이트하면서 최소 Cost가 되게 하는 값을 찾는다.</li>
 </ul>
 <div id="0fe3a935" class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>le: <span class="st">"Week 1 — Linear Regression"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>date: <span class="dv">2025</span><span class="op">-</span><span class="dv">0</span><span class="er">8</span><span class="op">-</span><span class="dv">14</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>categories: [ML, Studytit]</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>description: <span class="st">"From hypothesis to gradient descent"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="aea220dc-780a-408e-99a4-f9adcc6a03b3" class="cell" data-execution_count="9">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
@@ -268,7 +263,6 @@ window.Quarto = {
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># X, y 데이터 세트 산점도로 시각화</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.scatter(X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -278,18 +272,13 @@ window.Quarto = {
 </div>
 </div>
 <div id="1b9ccc15-3a70-4abe-a6c7-d638c72225e7" class="cell" data-execution_count="14">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 비용 함수 정의</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_cost(y, y_pred):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> <span class="bu">len</span>(y)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    cost <span class="op">=</span> np.<span class="bu">sum</span>(np.square(y <span class="op">-</span> y_pred))<span class="op">/</span>N</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cost</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="79b580ba-7a8a-432b-986c-4b34bc55747d" class="cell" data-execution_count="26">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get_weight_update() 함수</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 입력 배열 X값에 대한 예측 배열 y_pred는 np.dot(X, w1.T) + w0으로 구한다.</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># np.dot 내적을 활용한 것!</span></span>
@@ -311,11 +300,8 @@ window.Quarto = {
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    w0_update <span class="op">=</span> <span class="op">-</span>(<span class="dv">2</span><span class="op">/</span>N)<span class="op">*</span>learning_rate<span class="op">*</span>(np.dot(w0_factors.T, diff))</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> w1_update, w0_update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="6de656f5-42ca-4e35-938e-ae6444244fb6" class="cell" data-execution_count="32">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 입력 인자 iters로 주어진 횟수만큼 반복적으로 w1과 w0를 업데이트 적용함.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent_steps(X, y, iters<span class="op">=</span><span class="dv">10000</span>):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># w0와 w1를 모두 0으로 초기화.</span></span>
@@ -328,11 +314,8 @@ window.Quarto = {
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        w1 <span class="op">=</span> w1<span class="op">-</span>w1_update</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        w0 <span class="op">=</span> w0<span class="op">-</span>w0_update</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> w1, w0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="ade4e99c-c04a-4313-b4d9-ef7ee812b23d" class="cell" data-execution_count="36">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_cost(y, y_pred):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> <span class="bu">len</span>(y)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    cost <span class="op">=</span> np.<span class="bu">sum</span>(np.square(y<span class="op">-</span>y_pred))<span class="op">/</span>N</span>
@@ -341,18 +324,14 @@ window.Quarto = {
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"w1: </span><span class="sc">{0:.3f}</span><span class="st"> w0:</span><span class="sc">{1:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(w1[<span class="dv">0</span>,<span class="dv">0</span>], w0[<span class="dv">0</span>,<span class="dv">0</span>]))</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> w1[<span class="dv">0</span>,<span class="dv">0</span>] <span class="op">*</span> X <span class="op">+</span> w0</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Gradient Descent Total Cost: </span><span class="sc">{0:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(get_cost(y,y_pred)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>w1: 4.022 w0:6.162
 Gradient Descent Total Cost: 0.9935</code></pre>
 </div>
 </div>
 <div id="686caa8c-401a-46b7-a165-f4f6cea32ac3" class="cell" data-execution_count="38">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(X, y)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.plot(X, y_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -362,8 +341,6 @@ Gradient Descent Total Cost: 0.9935</code></pre>
 </div>
 </div>
 <div id="5ddc088d-c6d5-43a6-abae-cd39c0bf4a8c" class="cell" data-execution_count="46">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 미니 배치 확률적 경사 하강법 구현: 시간 단축</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stochastic_gradient_descent_steps(X, y, batch_size<span class="op">=</span><span class="dv">10</span>, iters<span class="op">=</span><span class="dv">1000</span>):</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    w0 <span class="op">=</span> np.zeros((<span class="dv">1</span>,<span class="dv">1</span>))</span>
@@ -381,16 +358,12 @@ Gradient Descent Total Cost: 0.9935</code></pre>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        w0 <span class="op">=</span> w0<span class="op">-</span>w0_update</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> w1, w0</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="d9e6bd7a-dec5-4270-8b35-333351ac61c0" class="cell" data-execution_count="44">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>w1, w0 <span class="op">=</span> stochastic_gradient_descent_steps(X, y, iters<span class="op">=</span><span class="dv">1000</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"w1:"</span>, <span class="bu">round</span>(w1[<span class="dv">0</span>,<span class="dv">0</span>], <span class="dv">3</span>), <span class="st">"w0: "</span>, <span class="bu">round</span>(w0[<span class="dv">0</span>,<span class="dv">0</span>], <span class="dv">3</span>))</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> w1[<span class="dv">0</span>,<span class="dv">0</span>] <span class="op">*</span> X <span class="op">+</span> w0</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Stochastic Gradient Descent Total Cost: </span><span class="sc">{0:.4f}</span><span class="st">"</span>.<span class="bu">format</span>(get_cost(y, y_pred)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>w1: 4.028 w0:  6.156
 Stochastic Gradient Descent Total Cost: 0.9937</code></pre>
@@ -400,10 +373,7 @@ Stochastic Gradient Descent Total Cost: 0.9937</code></pre>
 <section id="사이킷런-linearregression을-이용한-보스턴-주택-가격-예측" class="level1">
 <h1>사이킷런 LinearRegression을 이용한 보스턴 주택 가격 예측</h1>
 <div id="858c4842-81de-4f78-96c6-ce0a98904efc" class="cell" data-execution_count="11">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> sklearn.linear_model.LinearRegression(fit_intercept<span class="op">=</span><span class="va">True</span>, normalize<span class="op">=</span><span class="va">False</span>, copy_X<span class="op">=</span><span class="va">True</span>, n_jobs<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[11], line 1</span>
@@ -435,8 +405,6 @@ Stochastic Gradient Descent Total Cost: 0.9937</code></pre>
 <li><span class="math inline">\(R^2 = (예측값 Variance)/(실제값 Variance)\)</span></li>
 </ul>
 <div id="022c5b96-8091-4918-a145-5fbe76185650" class="cell" data-execution_count="15">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -453,7 +421,6 @@ Stochastic Gradient Descent Total Cost: 0.9937</code></pre>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>diabetesDF[<span class="st">'sick'</span>] <span class="op">=</span> diabetes.target</span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"데이터 크기"</span>, diabetesDF.shape)</span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>diabetesDF.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>데이터 크기 (442, 11)</code></pre>
 </div>
@@ -556,10 +523,7 @@ Stochastic Gradient Descent Total Cost: 0.9937</code></pre>
 </div>
 </div>
 <div id="e169cc1e-7c84-40b5-858c-ea1890349d49" class="cell" data-execution_count="31">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diabetesDF[<span class="st">'sick'</span>].describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>count    442.000000
 mean     152.133484
@@ -573,15 +537,12 @@ Name: sick, dtype: float64</code></pre>
 </div>
 </div>
 <div id="5613af27-8e1a-45b4-b46d-2b2a89f27267" class="cell" data-scrolled="true" data-execution_count="23">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">8</span>), ncols<span class="op">=</span><span class="dv">5</span>, nrows<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>lm_features <span class="op">=</span> [<span class="st">'age'</span>, <span class="st">'sex'</span>, <span class="st">'bmi'</span>, <span class="st">'bp'</span>, <span class="st">'s1'</span>, <span class="st">'s2'</span>, <span class="st">'s3'</span>, <span class="st">'s4'</span>, <span class="st">'s5'</span>, <span class="st">'s6'</span>]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, feature <span class="kw">in</span> <span class="bu">enumerate</span>(lm_features):</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> <span class="bu">int</span>(i<span class="op">/</span><span class="dv">4</span>)</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    col <span class="op">=</span> i<span class="op">%</span><span class="dv">4</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    sns.regplot(x<span class="op">=</span>feature, y<span class="op">=</span><span class="st">'sick'</span>, data<span class="op">=</span>diabetesDF, ax<span class="op">=</span>axs[row][col])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
@@ -603,8 +564,6 @@ Cell <span class="ansi-green-fg ansi-bold">In[23], line 6</span>
 </div>
 </div>
 <div id="0df297b9-45ee-40cd-a4e9-a6f6f79dfa93" class="cell" data-execution_count="27">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
@@ -622,18 +581,14 @@ Cell <span class="ansi-green-fg ansi-bold">In[23], line 6</span>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'MSE: </span><span class="sc">{0:.3f}</span><span class="st">, RMSE: </span><span class="sc">{1:.3f}</span><span class="st">'</span>.<span class="bu">format</span>(mse, rmse))</span>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Variance score: </span><span class="sc">{0:.3f}</span><span class="st">'</span>.<span class="bu">format</span>(r2_score(y_test, y_preds)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE: 2993.705, RMSE: 54.715
 Variance score: 0.497</code></pre>
 </div>
 </div>
 <div id="65c89904-ca55-4691-a1c7-1731c264963a" class="cell" data-execution_count="35">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'절편 값:'</span>, lr.intercept_)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'회귀 계수값:'</span>, np.<span class="bu">round</span>(lr.coef_, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>절편 값: 152.38617209733573
 회귀 계수값: [   39.1  -251.9   468.8   305.3 -1146.9   788.    177.2   117.4   937.9
@@ -641,12 +596,9 @@ Variance score: 0.497</code></pre>
 </div>
 </div>
 <div id="21d36729-fe77-41cd-b6e2-447fd12885f0" class="cell" data-execution_count="37">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 계수를 큰 값 순으로 정렬하기 위해 Series로 생성. 인덱스 칼럼명에 유의</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>coeff <span class="op">=</span> pd.Series(data<span class="op">=</span>np.<span class="bu">round</span>(lr.coef_, <span class="dv">1</span>), index<span class="op">=</span>X_data.columns)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>coeff.sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="37">
 <pre><code>s5      937.9
 s2      788.0
@@ -662,12 +614,9 @@ dtype: float64</code></pre>
 </div>
 </div>
 <div id="dc4488f7-db45-4e31-85f2-5eef953ab131" class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>y_target <span class="op">=</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 </section>
@@ -679,8 +628,6 @@ dtype: float64</code></pre>
 <li>사이킷런의 PolynomialFeatures 클래스를 통해 피처를 다항식 피처로 변환</li>
 </ul>
 <div id="dcf67bf2-22c6-463e-b85c-03b8ce90b0ea" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -693,7 +640,6 @@ dtype: float64</code></pre>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>poly.fit(X)</span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>poly_ftr <span class="op">=</span> poly.transform(X)</span>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"변환된 2차 다항식 계수 피처:</span><span class="ch">\n</span><span class="st">"</span>, poly_ftr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>일차 단항식 계수 피처:
  [[0 1]
@@ -704,8 +650,6 @@ dtype: float64</code></pre>
 </div>
 </div>
 <div id="ae80b787-c84b-46e5-831b-7408e07320e2" class="cell" data-execution_count="11">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polynomial_func(X):</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>X[:, <span class="dv">0</span>]<span class="op">+</span><span class="dv">3</span><span class="op">*</span>X[:, <span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>X[:, <span class="dv">1</span>]<span class="op">**</span><span class="dv">3</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
@@ -713,7 +657,6 @@ dtype: float64</code></pre>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"일차 단항식 계수 feature: </span><span class="ch">\n</span><span class="st">"</span>, X)</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> polynomial_func(X)</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"삼차 다항식 결정값:</span><span class="ch">\n</span><span class="st">"</span>,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>일차 단항식 계수 feature: 
  [[0 1]
@@ -723,8 +666,6 @@ dtype: float64</code></pre>
 </div>
 </div>
 <div id="4df91387-ee6f-4bd8-aeea-184c3da57ba8" class="cell" data-execution_count="17">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 3차 다항식 변환</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>poly_ftr <span class="op">=</span> PolynomialFeatures(degree<span class="op">=</span><span class="dv">3</span>).fit_transform(X)</span>
@@ -735,7 +676,6 @@ dtype: float64</code></pre>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>model.fit(poly_ftr, y)</span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Polynomial 회귀 계수</span><span class="ch">\n</span><span class="st">'</span>, np.<span class="bu">round</span>(model.coef_, <span class="dv">2</span>))</span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Polynomial 회귀 Shape: '</span>, model.coef_.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>3차 다항식 계수 feature: 
  [[ 1.  0.  1.  0.  0.  1.  0.  0.  0.  1.]
@@ -746,8 +686,6 @@ Polynomial 회귀 Shape:  (10,)</code></pre>
 </div>
 </div>
 <div id="3f23dcc2-3596-4d56-a708-165267564b88" class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipleline <span class="im">import</span> Pipeline</span>
@@ -762,7 +700,6 @@ Polynomial 회귀 Shape:  (10,)</code></pre>
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>                 (<span class="st">'linear'</span>, LinearRegression())])</span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.arange(<span class="dv">4</span>).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> polynomial_func(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 
 
