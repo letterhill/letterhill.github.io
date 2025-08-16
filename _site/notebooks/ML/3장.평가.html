@@ -189,18 +189,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div id="2a562465-8d13-42a3-8595-e696f7eb53dd" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sklearn.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>1.4.2</code></pre>
 </div>
 </div>
 <div id="8d2a4e0c-2207-458a-b315-a29b3ec6084f" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.base <span class="im">import</span> BaseEstimator</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -217,11 +212,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                pred[i] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="888d3acc-4328-4739-aad5-f2313ca169ee" class="cell" data-execution_count="5">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Null 처리 함수</span></span>
@@ -254,11 +246,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> drop_features(df)</span>
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> format_features(df)</span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="66c02f4f-6914-4b4c-a46b-fda942102014" class="cell" data-execution_count="7">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
@@ -274,7 +263,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>mypredictions <span class="op">=</span> myclf.predict(X_test)</span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"myDummy의 정확도는: </span><span class="sc">{0:.4f}</span><span class="st">"</span>.<span class="bu">format</span>(accuracy_score(y_test, mypredictions)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>myDummy의 정확도는: 0.8268</code></pre>
 </div>
@@ -283,8 +271,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>숫자 손글씨 데이터를 활용하여 불균형한 라벨 분포의 데이터를 정확도만으로 평가할 때의 문제점을 알아보자.</li>
 </ul>
 <div id="6995ea61-3298-4548-b571-84338aaebf28" class="cell" data-execution_count="9">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_digits</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.base <span class="im">import</span> BaseEstimator</span>
@@ -305,7 +291,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"데이터 shape: "</span>, digits.data.shape)</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(digits.target)</span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"데이터 타겟 shape: "</span>, digits.target.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[ 0.  0.  5. ...  0.  0.  0.]
  [ 0.  0.  0. ... 10.  0.  0.]
@@ -320,24 +305,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="659dd6a4-dca0-47dd-9288-bfad7b834570" class="cell" data-execution_count="11">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>digits.target <span class="op">==</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([False, False, False, ..., False, False, False])</code></pre>
 </div>
 </div>
 <div id="51280773-1cc2-48bd-b857-98381cc3770b" class="cell" data-execution_count="13">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (digits.target<span class="op">==</span><span class="dv">7</span>).astype(<span class="bu">int</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(digits.data, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="5685b541-e131-4a14-95cf-b898617ec18f" class="cell" data-execution_count="15">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 불균형한 레이블 데이터 분포도 확인</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_test.shape)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"0과 1의 분포도"</span>)</span>
@@ -348,7 +325,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>fakepred <span class="op">=</span> fakeclf.predict(X_test)</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_score(y_test, fakepred))</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 전부 0으로 예측해도 90%의 정확도가 나옴.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>(450,)
 0과 1의 분포도
@@ -361,12 +337,9 @@ Name: count, dtype: int64
 <section id="혼동행렬-confusion-matrix" class="level1">
 <h1>혼동행렬 Confusion Matrix</h1>
 <div id="69477691-f54d-4af4-85d4-556893a51653" class="cell" data-execution_count="17">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>confusion_matrix(y_test, fakepred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>array([[409,   0],
        [ 41,   0]], dtype=int64)</code></pre>
@@ -380,22 +353,17 @@ Name: count, dtype: int64
 <li>재현율 = TP/(FN+TP)</li>
 </ul>
 <div id="eb59756f-4ad9-4314-82b4-6430b82f7ecc" class="cell" data-execution_count="19">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, precision_score, recall_score</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"정밀도: "</span>, precision_score(y_test, fakepred))</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"재현율: "</span>, recall_score(y_test, fakepred))</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 전부 0으로 예측했기 때문에 두 값 모두 0이다.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>정밀도:  0.0
 재현율:  0.0</code></pre>
 </div>
 </div>
 <div id="f9157996-2697-48d6-bd38-6d0b461b0068" class="cell" data-execution_count="21">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 오차행렬, 정확도, 정밀도, 재현율 한 번에 계산하는 함수</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, precision_score, recall_score</span>
@@ -408,11 +376,8 @@ Name: count, dtype: int64
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'오차행렬'</span>)</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(confusion)</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'정확도: </span><span class="sc">{0:.4f}</span><span class="st">, 정밀도: </span><span class="sc">{1:.4f}</span><span class="st">, 재현율: </span><span class="sc">{2:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(accuracy, precision, recall))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="aa5620cf-4776-4a1c-bc62-6cc9b099113a" class="cell" data-execution_count="23">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -432,7 +397,6 @@ Name: count, dtype: int64
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>lr_clf.fit(X_train , y_train)</span>
 <span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> lr_clf.predict(X_test)</span>
 <span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>get_clf_eval(y_test , pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>오차행렬
 [[108  10]
@@ -444,8 +408,6 @@ Name: count, dtype: int64
 <section id="precisionrecall-trade-off" class="level1">
 <h1>Precision/Recall Trade-off</h1>
 <div id="8c88d854-e875-4c78-98e0-65c1cd259d98" class="cell" data-execution_count="25">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict_proba() 메서드 확인</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>pred_proba <span class="op">=</span> lr_clf.predict_proba(X_test)</span>
@@ -456,7 +418,6 @@ Name: count, dtype: int64
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측 확률 array 와 예측 결과값 array 를 concatenate 하여 예측 확률과 결과값을 한눈에 확인</span></span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>pred_proba_result <span class="op">=</span> np.concatenate([pred_proba , pred.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)],axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'두개의 class 중에서 더 큰 확률을 클래스 값으로 예측 </span><span class="ch">\n</span><span class="st">'</span>,pred_proba_result[:<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>(179, 2)
 pred_proba array에서 앞 3개만 샘플로 추출 
@@ -470,8 +431,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 </div>
 </div>
 <div id="b478205e-48c8-46ce-ab2f-9123591d05c6" class="cell" data-execution_count="27">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> Binarizer</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [[ <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>,  <span class="dv">2</span>],</span>
@@ -481,7 +440,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># threshold 기준값보다 같거나 작으면 0을, 크면 1을 반환</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>binarizer <span class="op">=</span> Binarizer(threshold<span class="op">=</span><span class="fl">1.1</span>)                     </span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(binarizer.fit_transform(X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[0. 0. 1.]
  [1. 0. 0.]
@@ -489,8 +447,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 </div>
 </div>
 <div id="10b5a608-c329-4cf9-bc2c-62fa5898e88b" class="cell" data-execution_count="29">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> Binarizer</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>custom_threshold <span class="op">=</span> <span class="fl">0.5</span></span>
@@ -501,7 +457,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>custom_predict <span class="op">=</span> binarizer.transform(pred_proba_1)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>get_clf_eval(y_test, custom_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>오차행렬
 [[108  10]
@@ -510,8 +465,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 </div>
 </div>
 <div id="fca89330-f181-43b8-b3e6-947991297f04" class="cell" data-execution_count="31">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 임계값을 0.4로 내려보기</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>custom_threshold <span class="op">=</span> <span class="fl">0.4</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>pred_proba_1 <span class="op">=</span> pred_proba[:,<span class="dv">1</span>].reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
@@ -521,7 +474,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>get_clf_eval(y_test, custom_predict)</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 정밀도는 떨어지고 재현율이 올라간 것을 확인할 수 있다.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>오차행렬
 [[97 21]
@@ -530,8 +482,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 </div>
 </div>
 <div id="c4193949-37bb-4b54-a702-20243f40ebee" class="cell" data-execution_count="43">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 임계값을 변경해보기</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> [<span class="fl">0.4</span>, <span class="fl">0.45</span>, <span class="fl">0.50</span>, <span class="fl">0.55</span>, <span class="fl">0.60</span>]</span>
@@ -543,7 +493,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"입곗값: "</span>, custom_threshold)</span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        get_clf_eval(y_test, custom_predict)</span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>get_eval_by_threshold(y_test, pred_proba[:, <span class="dv">1</span>].reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), thresholds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>입곗값:  0.4
 오차행렬
@@ -573,8 +522,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 </div>
 </div>
 <div id="9db1db07-e77a-45f4-8df0-c9f702b7676d" class="cell" data-execution_count="47">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_recall_curve</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 레이블 값이 1일 때의 예측 확률</span></span>
@@ -594,7 +541,6 @@ pred_proba array에서 앞 3개만 샘플로 추출
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 15 step 단위로 추출된 임계값에 따른 정밀도와 재현율 값 </span></span>
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'샘플 임계값별 정밀도: '</span>, np.<span class="bu">round</span>(precisions[thr_index], <span class="dv">3</span>))</span>
 <span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'샘플 임계값별 재현율: '</span>, np.<span class="bu">round</span>(recalls[thr_index], <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
@@ -611,8 +557,6 @@ Cell <span class="ansi-green-fg ansi-bold">In[47], line 8</span>
 </div>
 </div>
 <div id="30618512-34cf-41df-b74d-d34b6dfaf6ff" class="cell" data-execution_count="49">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
@@ -637,7 +581,6 @@ Cell <span class="ansi-green-fg ansi-bold">In[47], line 8</span>
 <span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
 <span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>precision_recall_curve_plot( y_test, lr_clf.predict_proba(X_test)[:, <span class="dv">1</span>] )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -655,19 +598,14 @@ Cell <span class="ansi-green-fg ansi-bold">In[47], line 8</span>
 <li>f1_score(): 사이킷런이 제공하는 API</li>
 </ul>
 <div id="08c1ee2e-0cca-4a39-954e-ecaeddb5d3a1" class="cell" data-execution_count="53">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> f1_score</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>f1 <span class="op">=</span> f1_score(y_test, pred)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'F! 스코어: </span><span class="sc">{0:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(f1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>F! 스코어: 0.7966</code></pre>
 </div>
 </div>
 <div id="539e7b1f-a5c0-4941-ac33-a5d4174a0cf7" class="cell" data-execution_count="55">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 임곗값에 따라 f1score 측정</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_clf_eval(y_test , pred):</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    confusion <span class="op">=</span> confusion_matrix( y_test, pred)</span>
@@ -684,7 +622,6 @@ Cell <span class="ansi-green-fg ansi-bold">In[47], line 8</span>
 <span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> [<span class="fl">0.4</span> , <span class="fl">0.45</span> , <span class="fl">0.50</span> , <span class="fl">0.55</span> , <span class="fl">0.60</span>]</span>
 <span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>pred_proba <span class="op">=</span> lr_clf.predict_proba(X_test)</span>
 <span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>get_eval_by_threshold(y_test, pred_proba[:,<span class="dv">1</span>].reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), thresholds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>입곗값:  0.4
 오차 행렬
@@ -722,15 +659,12 @@ Cell <span class="ansi-green-fg ansi-bold">In[47], line 8</span>
 <li>X축은 FPR, y축은 TPR</li>
 </ul>
 <div id="e0164dbf-0330-4a74-ae55-b245636461fd" class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>pred_proba_class1 <span class="op">=</span> lr_clf.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>fprs, tprs, thresholds <span class="op">=</span> roc_curve(y_test, pred_proba_class1we23)</span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>thr_index <span class="op">=</span> np.arange(<span class="dv">1</span>, thresholds.shape[<span class="dv">0</span>], <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 
 

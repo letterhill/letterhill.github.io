@@ -177,10 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>num_leaves의 개수를 중심으로 min_child_samples, max_depth를 함께 조정하며 모델의 복잡도를 줄인다.</li>
 </ul>
 <div id="6b7939d7-73c1-4dd6-8b18-06230f9a72e3" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install lightgbm<span class="op">==</span><span class="fl">3.3.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Requirement already satisfied: lightgbm==3.3.2 in c:\users\home\anaconda3\lib\site-packages (3.3.2)
 Requirement already satisfied: wheel in c:\users\home\anaconda3\lib\site-packages (from lightgbm==3.3.2) (0.43.0)
@@ -192,11 +189,8 @@ Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda
 </div>
 </div>
 <div id="c3c658b5-6919-4299-b435-d27dc06ac450" class="cell" data-execution_count="33">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightgbm</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lightgbm.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>4.5.0</code></pre>
 </div>
@@ -204,8 +198,6 @@ Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda
 <section id="lightgbm-적용---위스콘신-breast-cancer-prediction" class="level1">
 <h1>LightGBM 적용 - 위스콘신 Breast Cancer Prediction</h1>
 <div id="50875bc1-cbc2-47ce-9626-36f303969b1d" class="cell" data-execution_count="5">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LightGBM의 파이썬 패키지인 lightgbm에서 LGBMClassifier 임포트</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMClassifier</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -235,7 +227,6 @@ Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>lgbm_wrapper.fit(X_tr, y_tr, early_stopping_rounds<span class="op">=</span><span class="dv">50</span>, eval_metric<span class="op">=</span><span class="st">"logloss"</span>, eval_set<span class="op">=</span>evals, verbose<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> lgbm_wrapper.predict(X_test)</span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>pred_proba <span class="op">=</span> lgbm_wrapper.predict_proba(X_test)[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] training's binary_logloss: 0.625671 valid_1's binary_logloss: 0.628248
 [2] training's binary_logloss: 0.588173 valid_1's binary_logloss: 0.601106
@@ -351,8 +342,6 @@ Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda
 </div>
 </div>
 <div id="0c530aa0-c8dc-4d2a-ac21-1fa69156b595" class="cell" data-execution_count="11">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, accuracy_score</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> f1_score, roc_auc_score</span>
@@ -370,13 +359,9 @@ Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ROC-AUC print 추가</span></span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'정확도: </span><span class="sc">{0:.4f}</span><span class="st">, 정밀도: </span><span class="sc">{1:.4f}</span><span class="st">, 재현율: </span><span class="sc">{2:.4f}</span><span class="st">,</span><span class="op">\</span></span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">    F1: </span><span class="sc">{3:.4f}</span><span class="st">, AUC:</span><span class="sc">{4:.4f}</span><span class="st">'</span>.<span class="bu">format</span>(accuracy, precision, recall, f1, roc_auc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div id="f867fb38-4879-4c6c-a849-65e91cf93bc4" class="cell" data-execution_count="13">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>get_clf_eval(y_test, preds, pred_proba)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>오차 행렬
 [[34  3]
@@ -385,8 +370,6 @@ Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda
 </div>
 </div>
 <div id="598cd28a-c18e-4953-8b65-885129c3f6f1" class="cell" data-execution_count="17">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_importance()를 이용하여 feature 중요도 시각화</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> plot_importance</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -394,7 +377,6 @@ Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\home\anaconda
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">12</span>))</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plot_importance(lgbm_wrapper, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
